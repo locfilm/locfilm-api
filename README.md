@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # locfilm-api
 Locfilm es un vinculo entre  productores audiovisuales  y personas con espacios que desean poner en renta para producciones audiovisuales. 
 
@@ -10,8 +10,8 @@ Project to locate film locations. Check out the project's [documentation](https:
 
 # Prerequisites
 
-- [Docker](https://docs.docker.com/docker-for-mac/install/)  
-
+- [Docker](https://docs.docker.com/engine/install/)  
+- [Docker Compose](https://docs.docker.com/compose/install/)
 # Local Development
 
 Create the following enviorment variable just afteear creating the database with the correct data
@@ -27,6 +27,4 @@ Run a command inside the docker container:
 ```bash
 docker-compose run --rm web [command]
 ```
-=======
 
->>>>>>> dd8739b5a7b6cce97628bdbd591bd3abb8e668a3
