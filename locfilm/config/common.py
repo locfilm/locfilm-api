@@ -54,9 +54,9 @@ class Common(Configuration):
     # Postgres
     DATABASES = {
         'default': dj_database_url.config(
-            # Use this for testing
-            default='sqlite:///locfilmdb',
-            #default='postgres://postgres:@postgres:5432/postgres',
+            default='postgres://postgres:@postgres:5432/postgres',
+            # Use just this for testing
+            #default='sqlite:///locfilmdb',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }
