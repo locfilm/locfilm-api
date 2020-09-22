@@ -23,7 +23,8 @@ class Common(Configuration):
         'django_filters',            # for filtering rest endpoints
 
         # Your apps
-        'locfilm-api.users',
+        'locfilm.users',
+        'locfilm.heros.apps.HerosConfigApp',
 
     )
 
@@ -39,21 +40,23 @@ class Common(Configuration):
     )
 
     ALLOWED_HOSTS = ["*"]
-    ROOT_URLCONF = 'locfilm-api.urls'
+    ROOT_URLCONF = 'locfilm.urls'
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-    WSGI_APPLICATION = 'locfilm-api.wsgi.application'
+    WSGI_APPLICATION = 'locfilm.wsgi.application'
 
     # Email
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
     ADMINS = (
-        ('Angel Flores', 'angel.fa.040f@gmail.com'),('Yeferson Guarin', ''), ('Gabriel Ospina', ''),
+        ('Author', 'angel.fa.040f@gmail.com'),('Yeferson Guarin', ''), ('Gabriel Ospina', ''), ('Camilo Romero', '')
     )
 
     # Postgres
     DATABASES = {
         'default': dj_database_url.config(
             default='postgres://postgres:@postgres:5432/postgres',
+            # Use just this for testing
+            #default='sqlite:///locfilmdb',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }
@@ -193,7 +196,6 @@ class Common(Configuration):
         ),
         'DEFAULT_PERMISSION_CLASSES': [
             'rest_framework.permissions.IsAuthenticated',
-            #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
         ],
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework.authentication.SessionAuthentication',

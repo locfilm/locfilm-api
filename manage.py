@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "locfilm-api.config")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "locfilm.config")
     os.environ.setdefault("DJANGO_CONFIGURATION", "Local")
 
     try:

@@ -1,8 +1,8 @@
-site_name: locfilm-api
-site_description: Project to locate film locations
-repo_url: https://github.com/locfilm/locfilm-api
+site_name: locfilm
+site_description: Project to find locations for filming
+repo_url: https://github.com/Locfilm/locfilm-api
 site_dir: site
-copyright: Copyright &copy; 2020, <a href="https://github.com/locfilm">locfilm</a>.
+copyright: Copyright &copy; 2020, <a href="https://github.com/Locfilm">Locfilm</a>.
 dev_addr: 0.0.0.0:8001
 
 nav:

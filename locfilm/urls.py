@@ -6,16 +6,19 @@ from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from .users.views import UserViewSet, UserCreateViewSet
-from . import views as test_views
+from . import users
+from .heros.views import HeroViewSet
 
 router = DefaultRouter()
+router_2 = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'users', UserCreateViewSet)
+router_2.register(r'heros', HeroViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('heros/', include(router_2.urls)),
     path('api/v1/', include(router.urls)),
-    path('hello_world/', test_views.hello_world),
     path('api-token-auth/', views.obtain_auth_token),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 

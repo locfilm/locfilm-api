@@ -2,6 +2,7 @@ import os
 from .common import Common
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 class Local(Common):
     DEBUG = True
 
@@ -15,7 +16,7 @@ class Local(Common):
         '--nologcapture',
         '--with-coverage',
         '--with-progressive',
-        '--cover-package=locfilm-api'
+        '--cover-package=locfilm'
     ]
 
     # Mail

@@ -5,6 +5,6 @@ omit = *migrations*,
        *test*,
        *admin*,
        ./manage.py,
-       ./locfilm-api/config/*,
-       ./locfilm-api/wsgi.py,
+       ./locfilm/config/*,
+       ./locfilm/wsgi.py,
        *__init__*

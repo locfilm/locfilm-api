@@ -8,8 +8,8 @@ RUN pip install -r requirements.txt
 # Adds our application code to the image
 COPY . code
 WORKDIR code
-
+RUN find . -exec sed -i 's/\r//' {} \;
 EXPOSE 8000
 
 # Run the production server
-CMD newrelic-admin run-program gunicorn --bind 0.0.0.0:$PORT --access-logfile - locfilm-api.wsgi:application
+CMD newrelic-admin run-program gunicorn --bind 0.0.0.0:$PORT --access-logfile - locfilm.wsgi:application
