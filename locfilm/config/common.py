@@ -3,6 +3,7 @@ from os.path import join
 from distutils.util import strtobool
 import dj_database_url
 from configurations import Configuration
+import phone_field
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -16,6 +17,8 @@ class Common(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
 
+        # Utilities
+        'phone_field',
 
         # Third party apps
         'rest_framework',            # utilities for rest apis
