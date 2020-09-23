@@ -3,7 +3,6 @@ from os.path import join
 from distutils.util import strtobool
 import dj_database_url
 from configurations import Configuration
-import phone_field
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -51,7 +50,8 @@ class Common(Configuration):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
     ADMINS = (
-        ('Author', 'angel.fa.040f@gmail.com'),('Yeferson Guarin', ''), ('Gabriel Ospina', ''), ('Camilo Romero', '')
+        ('Author', 'angel.fa.040f@gmail.com'), ('Yeferson Guarin', ''),
+        ('Gabriel Ospina', ''), ('Camilo Romero', '')
     )
 
     # Postgres
@@ -59,7 +59,7 @@ class Common(Configuration):
         'default': dj_database_url.config(
             default='postgres://postgres:@postgres:5432/postgres',
             # Use just this for testing
-            #default='sqlite:///locfilmdb',
+            # default='sqlite:///locfilmdb',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }
