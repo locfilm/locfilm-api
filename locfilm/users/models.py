@@ -6,10 +6,12 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
 from phone_field import PhoneField
+from locfilm.utils.models import City
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    # city_id = models.ForeignKey(primary_key=False)
+
+    city_id = models.ForeignKey(City, on_delete=models.PROTECT)
     # identification_type_id = models.ForeignKey(primary_key=False)
     # idenfification = models.CharField()
     # profile_pic = models.ImageField()
