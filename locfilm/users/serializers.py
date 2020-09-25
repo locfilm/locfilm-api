@@ -24,3 +24,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
                   'auth_token', 'phone', 'address', )
         read_only_fields = ('auth_token',)
         extra_kwargs = {'password': {'write_only': True}}
+
+
+class UserLoginSerialzier(serializers.ModelSerializer):
+    pass

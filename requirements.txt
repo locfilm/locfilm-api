@@ -19,6 +19,8 @@ django-phone-field
 djangorestframework==3.11.1
 Markdown==3.2.2
 django-filter==2.3.0
+django-rest-registration
+
 
 # Developer Tools
 ipdb==0.13.3

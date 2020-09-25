@@ -11,7 +11,7 @@ from locfilm.utils.models import City
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    city_id = models.ForeignKey(City, on_delete=models.PROTECT)
+    # city_id = models.ForeignKey(City, on_delete=models.PROTECT, blank=True)
     # identification_type_id = models.ForeignKey(primary_key=False)
     # idenfification = models.CharField()
     # profile_pic = models.ImageField()

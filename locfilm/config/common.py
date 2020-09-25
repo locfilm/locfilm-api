@@ -23,12 +23,12 @@ class Common(Configuration):
         'rest_framework',            # utilities for rest apis
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
+        'rest_registration',
 
         # Your apps
         'locfilm.users',
         'locfilm.heros.apps.HerosConfigApp',
-        'locfilm.utils.apps.UtilsConfig'
-
+        'locfilm.utils.apps.UtilsConfig',
     )
 
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
@@ -205,4 +205,11 @@ class Common(Configuration):
             'rest_framework.authentication.SessionAuthentication',
             'rest_framework.authentication.TokenAuthentication',
         )
+    }
+
+    REST_REGISTRATION = {
+        'REGISTER_VERIFICATION_ENABLED': False,
+        'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+        'RESET_PASSWORD_VERIFICATION_ENABLED': False,
+        # 'USER_LOGIN_FIELDS':
     }
