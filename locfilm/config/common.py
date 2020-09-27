@@ -16,18 +16,20 @@ class Common(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
 
+        # Utilities
+        'phone_field',
 
         # Third party apps
         'rest_framework',            # utilities for rest apis
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
+        'rest_registration',
 
         # Your apps
-        'locfilm.users',
+        'locfilm.users.apps.UsersConfigApp',
         'locfilm.heros.apps.HerosConfigApp',
         'locfilm.locations.apps.LocationsConfigApp',
         'locfilm.utils.apps.UtilsConfig',
-
     )
 
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
@@ -50,7 +52,8 @@ class Common(Configuration):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
     ADMINS = (
-        ('Author', 'angel.fa.040f@gmail.com'),('Yeferson Guarin', ''), ('Gabriel Ospina', ''), ('Camilo Romero', '')
+        ('Author', 'angel.fa.040f@gmail.com'), ('Yeferson Guarin', ''),
+        ('Gabriel Ospina', ''), ('Camilo Romero', '')
     )
 
     # Postgres
@@ -58,7 +61,7 @@ class Common(Configuration):
         'default': dj_database_url.config(
             default='postgres://postgres:@postgres:5432/postgres',
             # Use just this for testing
-            #default='sqlite:///locfilmdb',
+            # default='sqlite:///locfilmdb',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }
@@ -184,7 +187,7 @@ class Common(Configuration):
         }
     }
 
-    # Custom user app
+    # Custom user app - app_label.ModelName
     AUTH_USER_MODEL = 'users.User'
 
     # Django Rest Framework
@@ -203,4 +206,11 @@ class Common(Configuration):
             'rest_framework.authentication.SessionAuthentication',
             'rest_framework.authentication.TokenAuthentication',
         )
+    }
+
+    REST_REGISTRATION = {
+        'REGISTER_VERIFICATION_ENABLED': False,
+        'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+        'RESET_PASSWORD_VERIFICATION_ENABLED': False,
+        # 'USER_LOGIN_FIELDS':
     }
