@@ -12,6 +12,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 from rest_framework.decorators import api_view, permission_classes
 
@@ -20,23 +23,20 @@ from rest_framework.decorators import api_view, permission_classes
 def hello_world(request):
     return Response({"message": "Hello, world!"})
 
-class LoginAuthentication(BasicAuthentication):
-
-    def authenticate(self, request):
-        user, _ = super(LoginAuthentication, self).authenticate(request)
-        login(request, user)
-        return user, _
-
-class UserLoginView(APIView):
+class CustomObtainAuthToken(ObtainAuthToken):
     """
-    User login that verifies username and password and then return
-    an authorization token
+    Obtain auth token with user login
     """
-    authentication_classes = (SessionAuthentication, LoginAuthentication)
-    permission_classes = (AllowAny,)
 
-    def post(self, request):
-        pass
+    def post(self, request, *args, **kwargs):
+        """
+        Handle HTTP POST request
+        """
+        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        # import pdb; pdb.set_trace()
+        return Response({'token': token.key, 'id': token.user_id})
+
 
 class UserViewSet(mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,

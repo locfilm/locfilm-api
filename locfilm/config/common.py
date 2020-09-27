@@ -26,7 +26,7 @@ class Common(Configuration):
         'rest_registration',
 
         # Your apps
-        'locfilm.users',
+        'locfilm.users.apps.UsersConfigApp',
         'locfilm.heros.apps.HerosConfigApp',
         'locfilm.utils.apps.UtilsConfig',
     )
@@ -186,7 +186,7 @@ class Common(Configuration):
         }
     }
 
-    # Custom user app
+    # Custom user app - app_label.ModelName
     AUTH_USER_MODEL = 'users.User'
 
     # Django Rest Framework
