@@ -14,16 +14,17 @@ from django.core.validators import RegexValidator
 from rest_framework.authtoken.models import Token
 
 # Apps
-from locfilm.utils.models.countries import City
+from locfilm.utils.models.countries import City, Country
+from locfilm.utils.models.identification_types import IdentificationType
 from phone_field import PhoneField
 
 class User(AbstractUser):
-
+    """ Model that defines User for locfilm aplication """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
-    # city_id = models.ForeignKey(City, on_delete=models.PROTECT, blank=True)
-    # identification_type_id = models.ForeignKey(primary_key=False)
+    country_id = models.ForeignKey(Country, on_delete=models.PROTECT, null=True)
+    city_id = models.ForeignKey(City, on_delete=models.PROTECT, blank=True, null=True)
+    identification_type_id = models.ForeignKey(IdentificationType, on_delete=models.PROTECT, null=True)
     # idenfification = models.CharField()
     picture = models.ImageField(
         'profile picture',
@@ -36,17 +37,14 @@ class User(AbstractUser):
         'email address',
         unique=True,
         error_messages={'unique': 'The mail is already in use. It must be unique'},
-
         )
-    # phone_regex = RegexValidator(
-    #     regex=r'\+?1?\d{9,15]$',
-    #     message="Phone number must be entered in the format : +999999999. Up to 15 digits allowed."
-    # )
-    phone = models.CharField( max_length=17, blank=True)
+
+    phone = PhoneField(max_length=17, blank=True)
 
     address = models.CharField(max_length=250, blank=True)
     is_verified = models.BooleanField(default=True)
 
+    # Variable configurations
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone']
 
