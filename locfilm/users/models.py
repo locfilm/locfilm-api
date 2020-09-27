@@ -14,7 +14,7 @@ from django.core.validators import RegexValidator
 from rest_framework.authtoken.models import Token
 
 # Apps
-from locfilm.utils.models import City
+from locfilm.utils.models.countries import City
 from phone_field import PhoneField
 
 class User(AbstractUser):

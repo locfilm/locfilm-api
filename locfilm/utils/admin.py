@@ -1,10 +1,10 @@
-""" GEneral utilites admin.""" 
+""" GEneral utilites admin."""
 
 from django.contrib import admin
 
 # Models.
 from locfilm.utils.models.countries import Country, City
-from locfilm.utils.models.identificationtypes import IdentificationType
+from locfilm.utils.models.identification_types import IdentificationType
 
 @admin.register(Country)
 @admin.register(IdentificationType)
