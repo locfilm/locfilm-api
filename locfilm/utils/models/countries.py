@@ -1,4 +1,4 @@
-""" Counturies and cities models """
+""" Countries and cities models """
 
 from django.db import models
 
@@ -14,3 +14,4 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
+

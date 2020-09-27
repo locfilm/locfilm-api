@@ -26,6 +26,7 @@ class Common(Configuration):
         'locfilm.users',
         'locfilm.heros.apps.HerosConfigApp',
         'locfilm.locations.apps.LocationsConfigApp',
+        'locfilm.utils.apps.UtilsConfig',
 
     )
 
