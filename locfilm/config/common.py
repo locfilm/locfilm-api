@@ -30,6 +30,7 @@ class Common(Configuration):
         'locfilm.heros.apps.HerosConfigApp',
         'locfilm.locations.apps.LocationsConfigApp',
         'locfilm.utils.apps.UtilsConfig',
+        'locfilm.bookings.apps.BookingsConfig',
     )
 
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
