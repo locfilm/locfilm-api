@@ -10,14 +10,11 @@ class IsOwner(permissions.BasePermission):
     Only person who assigned has permission
     """
     message = 'You are not host of this booking'
-
-    def has_permission(self, request, view,):
-        print(view.queryset)
-
-        return True
+    def has_permission(self, request, view):
+        return False
 
     def has_object_permission(self, request, view, obj):
-        if obj.user == request.user.user_id:
+        if obj.user_id == request.user.id:
            return True
         else:
            return False
@@ -36,3 +33,17 @@ class IsAllowed(permissions.BasePermission):
         print(obj)
         return random.choice([True, False])
 
+
+class OwnProfilePermission(permissions.BasePermission):
+    """
+    Object-level permission to only allow updating his own profile
+    """
+  #  def has_permission(self, request, view):
+  #      return False
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+
+        # obj here is a UserProfile instance
+        return False

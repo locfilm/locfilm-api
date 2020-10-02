@@ -24,6 +24,7 @@ class Common(Configuration):
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
         'rest_registration',
+        'guardian',                  # for object permission
 
         # Your apps
         'locfilm.users.apps.UsersConfigApp',
@@ -215,3 +216,8 @@ class Common(Configuration):
         'RESET_PASSWORD_VERIFICATION_ENABLED': False,
         # 'USER_LOGIN_FIELDS':
     }
+
+    AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # default
+    'guardian.backends.ObjectPermissionBackend',
+    )

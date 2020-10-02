@@ -16,9 +16,6 @@ class Booking(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
 
-    # owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-    #                           on_delete=models.CASCADE)
-
     creation_date = models.DateTimeField(auto_now=True)
 
     # status = models.
