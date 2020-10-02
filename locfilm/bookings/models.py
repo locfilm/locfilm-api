@@ -6,6 +6,7 @@ from django.db import models
 
 from locfilm.users.models import User
 from locfilm.locations.models.locations import Location
+from locfilm.config import common as settings
 
 class Booking(models.Model):
     """ Booking model.
@@ -14,6 +15,9 @@ class Booking(models.Model):
 
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+    # owner = models.ForeignKey(settings.AUTH_USER_MODEL,
+    #                           on_delete=models.CASCADE)
 
     creation_date = models.DateTimeField(auto_now=True)
 
@@ -28,3 +32,7 @@ class Booking(models.Model):
 
     def get_duration(self):
         pass
+
+    class Meta:
+        verbose_name = 'Booking'
+        verbose_name_plural = 'Bookings'
