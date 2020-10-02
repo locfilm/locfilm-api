@@ -29,9 +29,9 @@ class BookingViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(booking__username=username)
         return queryset
 
-    @action()
-    def my_bookings():
-        pass
+    #@action()
+    #def my_bookings():
+    #    pass
 
 
 class BookingLocationsViewSet(viewsets.ViewSet):
