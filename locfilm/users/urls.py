@@ -13,8 +13,5 @@ urlpatterns = [
     path('users/hi', hello_world),
     path('users/api-token-auth/', AuthView.obtain_auth_token),
     path('users/login', CustomObtainAuthToken.as_view()),
-    path('users/login', CustomObtainAuthToken.as_view()),
-    path('', include(('locfilm.locations.urls', 'locations'), namespace='locations'))
-
 
 ]
