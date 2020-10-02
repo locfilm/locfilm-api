@@ -16,7 +16,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
 
     def validate(self, data):
-        if data['start_date'] > data['end_date']:
+        if data['start_date'] >= data['end_date']:
             raise serializers.ValidationError("finish must occur after start")
 
         return data
