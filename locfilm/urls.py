@@ -16,6 +16,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('locfilm.heros.urls', 'heros'), namespace='heros')),
     path('', include(('locfilm.users.urls', 'users'), namespace='users')),
+    path('', include(('locfilm.locations.urls', 'locations'), namespace='locations')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # the 'api-root' from django rest-frameworks default router
