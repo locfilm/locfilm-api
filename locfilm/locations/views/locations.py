@@ -1,8 +1,9 @@
 """ Location views. """
 
 # Django REST Framework
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import mixins, status, viewsets
+from rest_framework.decorators import action
+
 
 # Models
 from locfilm.locations.models import Location
@@ -10,17 +11,29 @@ from locfilm.locations.models import Location
 # Serializers
 from locfilm.locations.serializers import LocationModelSerializer
 
+# Permissions
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
+
 class LocationViewSet(viewsets.ModelViewSet):
     """ Location viewset. """
 
+    queryset = Location.objects.all()
     serializer_class = LocationModelSerializer
-    permission_classes = (IsAuthenticated,)
 
-    def get_queryset(self):
-        """ Restrict list to verified only."""
-        queryset = Location.objects.all()
+    def get_permissions(self):
+        """ Set permissions based in actions."""
         if self.action == 'list':
-            return queryset.filter(is_verified=True)
-        return queryset
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
+
+
+
+
+
+
 
 
