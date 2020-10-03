@@ -8,6 +8,7 @@ from rest_framework.routers import DefaultRouter
 # Urls from apps
 from .heros.urls import urlpatterns as HeroUrls
 from .users.urls import urlpatterns as UserUrls
+from .bookings.urls import urlpatterns as BookingUrls
 
 root = ''
 
@@ -16,6 +17,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('locfilm.heros.urls', 'heros'), namespace='heros')),
     path('', include(('locfilm.users.urls', 'users'), namespace='users')),
+    path('', include(('locfilm.bookings.urls', 'users'), namespace='bookings')),
     path('', include(('locfilm.locations.urls', 'locations'), namespace='locations')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
