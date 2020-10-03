@@ -24,6 +24,7 @@ class Common(Configuration):
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
         'rest_registration',
+        'storages',
 
         # Your apps
         'locfilm.users.apps.UsersConfigApp',
@@ -76,20 +77,42 @@ class Common(Configuration):
     USE_L10N = True
     USE_TZ = True
     LOGIN_REDIRECT_URL = '/'
+  
 
+    # Media files
+    AWS_LOCATION = 'static'
+    
+    AWS_ACCESS_KEY_ID = os.getenv('DJANGO_AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('DJANGO_AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('DJANGO_AWS_STORAGE_BUCKET_NAME')
+
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_QUERYSTRING_AUTH = False
+    AWS_DEFAULT_ACL = None
+    STATICFILES_DIRS = [str(os.path.dirname("static"))]
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'#
+    
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_AUTO_CREATE_BUCKET = True
+    AWS_QUERYSTRING_AUTH = False
+    MEDIA_URL = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/'
+    
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.0/howto/static-files/
+    STATIC_URL='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    
+    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+    MEDIA_ROOT = 'https://%s/%s/media' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), 'static'))
     STATICFILES_DIRS = []
-    STATIC_URL = '/static/'
     STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.FileSystemFinder',
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     )
-
-    # Media files
-    MEDIA_ROOT = join(os.path.dirname(BASE_DIR), 'media')
-    MEDIA_URL = '/media/'
 
     TEMPLATES = [
         {
