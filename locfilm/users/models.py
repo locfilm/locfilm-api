@@ -39,11 +39,7 @@ class User(AbstractUser):
         error_messages={'unique': 'The mail is already in use. It must be unique'},
         )
 
-    phone_regex = RegexValidator(
-        regex=r'^\+?\d{9,15}$',
-        message="Phone number must be entered in the format : +999999999. Up to 15 digits allowed."
-    )
-    phone = models.CharField(validators=[phone_regex],max_length=16)
+    phone = PhoneField()
 
     address = models.CharField(max_length=250, blank=True)
     is_verified = models.BooleanField(default=True)
