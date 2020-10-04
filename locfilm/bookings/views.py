@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # Python
-from datetime import date
+from datetime import datetime
 
 # App data
 from locfilm.bookings.serializers import BookingSerializer, DatesBookingSerializer
@@ -39,13 +39,13 @@ class BookingViewSet(viewsets.ModelViewSet):
         except:
             return Response( {'error':'Location with ID provided does not exist'} )
 
-        if request.user.id != booking.user_id:
+        if request.user != booking.user_id:
             return Response({'error':'User unauthorized'})
 
         data = request.data
-        data['location_id'] = booking.location_id
+        data['location_id'] = booking.location_id.id
         data['booking_id'] = booking.id
-        data['rating_date'] = date.today()
+        data['rating_date'] = datetime.today()
 
         serializer = RatingModelSerializer(data=data)
         if serializer.is_valid():
