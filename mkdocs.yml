@@ -10,3 +10,5 @@ nav:
   - API:
     - Authentication: 'api/authentication.md'
     - Users: 'api/users.md'
+    - Locations: 'api/locations.md'
+    - Bookings: 'api/bookings.md'
