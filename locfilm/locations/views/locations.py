@@ -15,12 +15,21 @@ from locfilm.locations.serializers import LocationModelSerializer, ImageModelSer
 # Permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
+# Filters
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 class LocationViewSet(viewsets.ModelViewSet):
     """ Location viewset. """
 
     queryset = Location.objects.all()
     serializer_class = LocationModelSerializer
+
+    # Filter
+    filter_backends = [SearchFilter, OrderingFilter, DjangoFilterBackend]
+    search_fields = ['name', 'description', 'city__name']
+    filter_fields = ['is_active', 'is_verified',
+    'has_parking', 'has_dressing_room', 'has_bathroom', 'has_cattering', 'has_wifi']
 
     def get_permissions(self):
         """ Set permissions based in actions."""
