@@ -17,6 +17,6 @@ class LocationModelSerializer(serializers.ModelSerializer):
             'id', 'name', 'address', 'contact_email', 'price', 'contact_phone',
             'owner', 'city', 'categories',
             'latitude', 'longitude', 'is_active', 'is_verified',
-            'has_parking', 'has_dressing_room', 'has_bathroom', 'has_cattering', 'has_wifi'
-
+            'has_parking', 'has_dressing_room', 'has_bathroom', 'has_cattering', 'has_wifi',
+            'main_image',
         )
