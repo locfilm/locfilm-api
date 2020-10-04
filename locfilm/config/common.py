@@ -18,6 +18,7 @@ class Common(Configuration):
 
         # Utilities
         'phone_field',
+        'corsheaders',
 
         # Third party apps
         'rest_framework',            # utilities for rest apis
@@ -37,13 +38,16 @@ class Common(Configuration):
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
     MIDDLEWARE = (
         'django.middleware.security.SecurityMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
+
+    CORS_ALLOW_ALL_ORIGINS = True
 
     ALLOWED_HOSTS = ["*"]
     ROOT_URLCONF = 'locfilm.urls'
