@@ -15,7 +15,6 @@ from .views import ratings as rating_views
 router = DefaultRouter()
 router.register(r'locations', location_views.LocationViewSet, basename='location')
 router.register(r'images', image_views.ImagesViewSet, basename='images')
-router.register(r'ratings', rating_views.RatingViewSet, basename='ratings')
 
 urlpatterns = [
     path('', include(router.urls))
