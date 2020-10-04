@@ -12,7 +12,7 @@ class BookingSerializer(serializers.ModelSerializer):
     #location_id = serializers.StringRelatedField()
     class Meta:
         model = Booking
-        fields = ['user_id', 'location_id', 'start_date', 'end_date', 'observations']
+        fields = ['id','user_id', 'location_id', 'start_date', 'end_date', 'observations']
 
 
     def validate(self, data):
