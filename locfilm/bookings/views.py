@@ -17,7 +17,8 @@ from locfilm.users.models import User
 from locfilm.bookings.permissions import IsOwner, IsAllowed, OwnProfilePermission
 from locfilm.locations.serializers.ratings import RatingModelSerializer
 
-# create a viewset
+
+
 class BookingViewSet(viewsets.ModelViewSet):
     # specify serializer to be used
     serializer_class = BookingSerializer
@@ -31,8 +32,8 @@ class BookingViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(booking__username=username)
         return queryset
 
-    @action(detail=True,methods=['post'],permissions_classes=[permissions.IsAuthenticated])
-    def ratings(self,request,pk=none):
+    @action(detail=True,methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def ratings(self,request,pk=None):
         try:
             booking = Booking.objects.get(id=pk)
         except:
