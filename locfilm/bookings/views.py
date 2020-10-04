@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # App data
-from locfilm.bookings.serializers import BookingSerializer, BookingListSerializer
+from locfilm.bookings.serializers import BookingSerializer, DatesBookingSerializer
 from locfilm.bookings.models import Booking
 from locfilm.locations.models import Location
 from locfilm.users.models import User
@@ -38,25 +38,33 @@ class BookingLocationsViewSet(viewsets.ViewSet):
     """ViewSet for manage the bookings of locations
     """
 
-    @action(detail=True, methods=['get','post'], )
+    @action(detail=True, methods=['get','post'], permission_classes=[permissions.AllowAny])
     def bookings(self, request, pk=None):
         try:
             location = Location.objects.get(pk=pk)
         except:
             return Response( {'error':'Location with ID provided does not exist'} )
 
+        # Save new booking
         data = request.data
         data['location_id'] = location.pk
         data['user_id'] = request.user.id
-        print(data)
-        serializer = BookingSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-        else:
-            return Response( serializer.errors )
+
+        if request.method == 'POST':
+            if request.user.is_anonymous:
+                return Response({'error':'It is necessary to login to perform this action'})
+
+            serializer = BookingSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response( serializer.errors )
 
         if request.method == 'GET':
-            return Response({"hi":'holaa'})
+            user_bookings = Booking.objects.filter(location_id=data['location_id'])
+            serializer =  DatesBookingSerializer(data=user_bookings, many=True)
+            serializer.is_valid()
+            return Response(serializer.data)
 
         #serializer =
 class BookingUsersViewSet(viewsets.ViewSet):
