@@ -2,7 +2,7 @@
 
 # Django REST Framework
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -31,7 +31,7 @@ class LocationViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
 
-    @action(detail=True, methods=['get'],)
+    @action(detail=True, methods=['get'], permission_classes=[AllowAny])
     def images(self, request, pk=None):
         """ View to return all the images of a specific location """
         try:
