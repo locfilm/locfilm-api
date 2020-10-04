@@ -3,6 +3,8 @@
 # Django
 from django.db import models
 from django.core.validators import RegexValidator
+from locfilm.users.models import User
+from locfilm.utils.models.countries import City
 
 class Location (models.Model):
     """ Location model.
@@ -21,11 +23,13 @@ class Location (models.Model):
         message="Phone number must be entered in the format : +999999999. Up to 15 digits allowed."
     )
     contact_phone = models.CharField(validators=[phone_regex],max_length=16)
+    main_image = models.ImageField(upload_to='locations/pictures', verbose_name='Main picture of a location', null=True)
+
 
     # Foreign Keys
 
-    owner = models.ForeignKey('users.User', on_delete=models.CASCADE)
-    city = models.ForeignKey('utils.City', on_delete=models.CASCADE )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE )
     categories = models.ManyToManyField('locations.Category', through='locations.Group', through_fields=('location', 'category'))
 
     # Geolocation

@@ -33,3 +33,10 @@ class BookingListSerializer(serializers.ListSerializer):
     class Meta:
         model = Booking
         fields = '__all__'
+
+class DatesBookingSerializer(serializers.ModelSerializer):
+    """ Serializer to list all the Bookings of locations with their dates """
+
+    class Meta:
+        model = Booking
+        fields = ('location_id', 'start_date', 'end_date')
