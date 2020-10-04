@@ -7,10 +7,10 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # Models
-from locfilm.locations.models import Location, Image
+from locfilm.locations.models import Location, Image, Rating
 
 # Serializers
-from locfilm.locations.serializers import LocationModelSerializer, ImageModelSerializer
+from locfilm.locations.serializers import LocationModelSerializer, ImageModelSerializer, RatingModelSerializer
 
 # Permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -42,5 +42,17 @@ class LocationViewSet(viewsets.ModelViewSet):
 
         queryset = Image.objects.filter(location_id=pk)
         serializer = ImageModelSerializer(data=queryset, many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['get'], permission_classes=[permissions.AllowAny])
+    def ratings(self, request, pk=None):
+        try:
+            location = Location.objects.get(id=pk)
+        except:
+            return Response( {'error':'Location with ID provided does not exist'} )
+
+        rating_locations = Rating.objects.filter(location_id=pk)
+        serializer =  RatingModelSerializer(data=rating_locations, many=True)
         serializer.is_valid()
         return Response(serializer.data)

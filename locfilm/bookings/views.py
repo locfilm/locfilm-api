@@ -6,14 +6,16 @@ from rest_framework import mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+# Python
+from datetime import date
+
 # App data
 from locfilm.bookings.serializers import BookingSerializer, DatesBookingSerializer
 from locfilm.bookings.models import Booking
 from locfilm.locations.models import Location
 from locfilm.users.models import User
 from locfilm.bookings.permissions import IsOwner, IsAllowed, OwnProfilePermission
-
-
+from locfilm.locations.serializers.ratings import RatingModelSerializer
 
 # create a viewset
 class BookingViewSet(viewsets.ModelViewSet):
@@ -29,9 +31,27 @@ class BookingViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(booking__username=username)
         return queryset
 
-    #@action()
-    #def my_bookings():
-    #    pass
+    @action(detail=True,methods=['post'],permissions_classes=[permissions.IsAuthenticated])
+    def ratings(self,request,pk=none):
+        try:
+            booking = Booking.objects.get(id=pk)
+        except:
+            return Response( {'error':'Location with ID provided does not exist'} )
+
+        if request.user.id != booking.user_id:
+            return Response({'error':'User unauthorized'})
+
+        data = request.data
+        data['location_id'] = booking.location_id
+        data['booking_id'] = booking.id
+        data['rating_date'] = date.today()
+
+        serializer = RatingModelSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response( serializer.errors )
 
 
 class BookingLocationsViewSet(viewsets.ViewSet):
