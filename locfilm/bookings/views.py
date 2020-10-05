@@ -12,6 +12,7 @@ from datetime import datetime
 # App data
 from locfilm.bookings.serializers import BookingSerializer, DatesBookingSerializer
 from locfilm.bookings.models import Booking
+from locfilm.locations.models import Rating
 from locfilm.locations.models import Location
 from locfilm.users.models import User
 from locfilm.bookings.permissions import IsOwner, IsAllowed, OwnProfilePermission
@@ -41,6 +42,12 @@ class BookingViewSet(viewsets.ModelViewSet):
 
         if request.user != booking.user_id:
             return Response({'error':'User unauthorized'})
+
+        #Validate if the booking has rating. Only one rating is allowed by booking
+        ratings = Rating.objects.filter(booking_id=booking.id)
+
+        if len(ratings)>1:
+            return Response({'error':'The booking already has rating'})
 
         data = request.data
         data['location_id'] = booking.location_id.id

@@ -4,9 +4,7 @@
 from django.contrib import admin
 
 # Models
-from locfilm.locations.models import Location
-from locfilm.locations.models import AdditionalInfo
-from locfilm.locations.models import Image
+from locfilm.locations.models import AdditionalInfo, Image, Location, Rating
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -38,3 +36,18 @@ class ImageLocationAdmin(admin.ModelAdmin):
 
     list_display = ('location_id', 'title')
     search_fields = ('location_id', 'title')
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    """ Image location admin."""
+
+    list_display = (
+        'location_id',
+        'booking_id',
+        'rating_date',
+        'accesibility',
+        'conditions',
+        'average',
+        'description',
+    )

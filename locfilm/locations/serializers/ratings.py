@@ -11,4 +11,4 @@ class RatingModelSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Rating
-        fields = '__all__'
+        fields = ('id','location_id','booking_id','rating_date','accesibility','conditions','average','description')
