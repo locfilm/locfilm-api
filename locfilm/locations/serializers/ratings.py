@@ -8,9 +8,10 @@ from locfilm.locations.models import Rating
 
 class RatingModelSerializer(serializers.ModelSerializer):
     """ Rating model serializer. """
-    accesibility = serializers.IntegerField(required=True)
-    conditions = serializers.IntegerField(required=True, help_text='Conditions of the location')
-    average = serializers.IntegerField(required=True, help_text='General experience')
+    CHOICES = [1,2,3,4,5]
+    accesibility = serializers.ChoiceField(required=True, help_text='accesibility of the location. 1 to 5', choices=CHOICES)
+    conditions = serializers.ChoiceField(required=True, help_text='Conditions of the location. 1 to 5', choices=CHOICES)
+    average = serializers.ChoiceField(required=True, help_text='General experience. 1 to 5', choices=CHOICES)
     class Meta:
 
         model = Rating
