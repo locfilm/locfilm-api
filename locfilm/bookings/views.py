@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # Python
-from datetime import date
+from datetime import datetime
 
 # App data
 from locfilm.bookings.serializers import BookingSerializer, DatesBookingSerializer
@@ -18,7 +18,8 @@ from locfilm.users.models import User
 from locfilm.bookings.permissions import IsOwner, IsAllowed, OwnProfilePermission
 from locfilm.locations.serializers.ratings import RatingModelSerializer
 
-# create a viewset
+
+
 class BookingViewSet(viewsets.ModelViewSet):
     # specify serializer to be used
     serializer_class = BookingSerializer
@@ -32,14 +33,14 @@ class BookingViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(booking__username=username)
         return queryset
 
-    @action(detail=True,methods=['post'],permissions_classes=[permissions.IsAuthenticated])
-    def ratings(self,request,pk=none):
+    @action(detail=True,methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def ratings(self,request,pk=None):
         try:
             booking = Booking.objects.get(id=pk)
         except:
             return Response( {'error':'Location with ID provided does not exist'} )
 
-        if request.user.id != booking.user_id:
+        if request.user != booking.user_id:
             return Response({'error':'User unauthorized'})
 
         #Validate if the booking has rating. Only one rating is allowed by booking
@@ -49,9 +50,9 @@ class BookingViewSet(viewsets.ModelViewSet):
             return Response({'error':'The booking already has rating'})
 
         data = request.data
-        data['location_id'] = booking.location_id
+        data['location_id'] = booking.location_id.id
         data['booking_id'] = booking.id
-        data['rating_date'] = date.today()
+        data['rating_date'] = datetime.today()
 
         serializer = RatingModelSerializer(data=data)
         if serializer.is_valid():

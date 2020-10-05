@@ -15,7 +15,6 @@ from locfilm.locations.serializers import LocationModelSerializer, ImageModelSer
 # Permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-
 class LocationViewSet(viewsets.ModelViewSet):
     """ Location viewset. """
 
@@ -45,7 +44,7 @@ class LocationViewSet(viewsets.ModelViewSet):
         serializer.is_valid()
         return Response(serializer.data)
 
-    @action(detail=True, methods=['get'], permission_classes=[permissions.AllowAny])
+    @action(detail=True, methods=['get'], permission_classes=[AllowAny])
     def ratings(self, request, pk=None):
         try:
             location = Location.objects.get(id=pk)
