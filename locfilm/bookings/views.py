@@ -19,7 +19,6 @@ from locfilm.bookings.permissions import IsOwner, IsAllowed, OwnProfilePermissio
 from locfilm.locations.serializers.ratings import RatingModelSerializer
 
 
-
 class BookingViewSet(viewsets.ModelViewSet):
     # specify serializer to be used
     serializer_class = BookingSerializer
@@ -32,6 +31,43 @@ class BookingViewSet(viewsets.ModelViewSet):
         if username is not None:
             queryset = queryset.filter(booking__username=username)
         return queryset
+
+    @action(detail=True,methos=['put'], permission_classes=[permissions.IsAuthenticated])
+    def update_status(self,request,pk=None):
+        try:
+            booking = Booking.objects.get(id=pk)
+        except:
+            return Response( {'error':'Location with ID provided does not exist'} )
+
+        if request.user != booking.user_id:
+            return Response({'error':'User unauthorized'})
+
+        status = request.status
+        error = False
+        message = ''
+
+        if booking.status == 'Pending':
+            if status == 'Confirmerd' or status == 'Cancelled':
+                booking.status = status
+            else:
+                error = False
+                message = f'The status of the booking cannot be changed because its status is {booking.status} and the new status is {status}'
+        elif booking.status =='Confirmed':
+            if status == 'Finished':
+                booking.status = status
+            else:
+                error = False
+                message = f'The status of the booking cannot be changed because its status is {booking.status} and the new status is {status}'
+        else:
+            error = False
+            message = f'The status of the booking cannot be changed because its status is {booking.status}'
+
+        if error:
+            return Response({'error':message})
+        else:
+            booking.save()
+            return Response(booking)
+
 
     @action(detail=True,methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def ratings(self,request,pk=None):
