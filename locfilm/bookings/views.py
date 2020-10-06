@@ -33,23 +33,11 @@ class BookingViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(booking__username=username)
         return queryset
 
-<<<<<<< HEAD
-    @action(detail=True,methos=['put'], permission_classes=[permissions.IsAuthenticated])
-=======
     @action(detail=True,methods=['patch'], permission_classes=[permissions.IsAuthenticated])
->>>>>>> migrations_new_server
     def update_status(self,request,pk=None):
         try:
             booking = Booking.objects.get(id=pk)
         except:
-<<<<<<< HEAD
-            return Response( {'error':'Location with ID provided does not exist'} )
-
-        if request.user != booking.user_id:
-            return Response({'error':'User unauthorized'})
-
-        status = request.status
-=======
             return Response( {'error':'Location with ID provided does not exist'}, status=status_codes.HTTP_404_NOT_FOUND )
 
         if request.user != booking.user_id:
@@ -61,33 +49,10 @@ class BookingViewSet(viewsets.ModelViewSet):
             return Response({'error':serializer.errors,  'required':'Some of these values: "Pending", "Confirmed", "Cancelled", "Finished"'}, status=status_codes.HTTP_400_BAD_REQUEST)
 
         status = serializer.validated_data['status']
->>>>>>> migrations_new_server
         error = False
         message = ''
 
         if booking.status == 'Pending':
-<<<<<<< HEAD
-            if status == 'Confirmerd' or status == 'Cancelled':
-                booking.status = status
-            else:
-                error = False
-                message = f'The status of the booking cannot be changed because its status is {booking.status} and the new status is {status}'
-        elif booking.status =='Confirmed':
-            if status == 'Finished':
-                booking.status = status
-            else:
-                error = False
-                message = f'The status of the booking cannot be changed because its status is {booking.status} and the new status is {status}'
-        else:
-            error = False
-            message = f'The status of the booking cannot be changed because its status is {booking.status}'
-
-        if error:
-            return Response({'error':message})
-        else:
-            booking.save()
-            return Response(booking)
-=======
             if status == 'Confirmed' or status == 'Cancelled':
                 serializer.validated_data['status'] = status
             else:
@@ -111,7 +76,6 @@ class BookingViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         else:
             return Response({'error':message}, status=status_codes.HTTP_409_CONFLICT)
->>>>>>> migrations_new_server
 
 
     @action(detail=True,methods=['post'], permission_classes=[permissions.IsAuthenticated])
