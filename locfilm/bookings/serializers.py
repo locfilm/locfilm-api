@@ -12,7 +12,7 @@ class BookingSerializer(serializers.ModelSerializer):
     #location_id = serializers.StringRelatedField()
     class Meta:
         model = Booking
-        fields = ['id','user_id', 'location_id', 'start_date', 'end_date', 'observations']
+        fields = ['id','user_id', 'location_id', 'start_date', 'end_date', 'observations', 'status']
 
 
     def validate(self, data):
@@ -40,3 +40,17 @@ class DatesBookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ('location_id', 'start_date', 'end_date')
+
+
+class UpdateBookingStatusSerializer(serializers.ModelSerializer):
+    """ Serializer that update the status of a booking"""
+
+    BOOKING_STATES = [('Pending','Pending'), ('Confirmed','Confirmed',) ,('Cancelled','Cancelled',) ,('Finished','Finished',) ]
+
+    status = serializers.ChoiceField(required=True, choices=BOOKING_STATES, )
+
+
+    class Meta:
+        model = Booking
+        fields = ['status']
+
