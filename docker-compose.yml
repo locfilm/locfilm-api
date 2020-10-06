@@ -10,7 +10,7 @@ services:
     environment:
       - DJANGO_SECRET_KEY=local
     env_file:
-      - variables.env
+      - production_variables.env
     image: web
     build: ./
     command: >
