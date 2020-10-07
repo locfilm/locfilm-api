@@ -16,10 +16,9 @@ class Production(Common):
     # https://docs.djangoproject.com/en/2.0/howto/static-files/
     # http://django-storages.readthedocs.org/en/latest/index.html
     INSTALLED_APPS += ('storages',)
-    
     # Media files
     AWS_LOCATION = 'static'
-    
+
     AWS_ACCESS_KEY_ID = os.getenv('DJANGO_AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.getenv('DJANGO_AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.getenv('DJANGO_AWS_STORAGE_BUCKET_NAME')
@@ -31,18 +30,18 @@ class Production(Common):
     AWS_QUERYSTRING_AUTH = False
     AWS_DEFAULT_ACL = None
     STATICFILES_DIRS = [str(os.path.dirname("static"))]
-    
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'#
+
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  #
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    
+
     AWS_AUTO_CREATE_BUCKET = True
     AWS_QUERYSTRING_AUTH = False
     MEDIA_URL = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/'
-    
+
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.0/howto/static-files/
-    STATIC_URL='https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-    
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
     MEDIA_ROOT = 'https://%s/%s/media' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)

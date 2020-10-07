@@ -17,4 +17,3 @@ class Group (models.Model):
     def __str__(self):
         """Return Location and Category"""
         return '{} at {}'.format(self.location, self.category)
-

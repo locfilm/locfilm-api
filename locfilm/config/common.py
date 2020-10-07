@@ -222,6 +222,6 @@ class Common(Configuration):
     }
 
     AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', # default
-    'guardian.backends.ObjectPermissionBackend',
+        'django.contrib.auth.backends.ModelBackend',  # default
+        'guardian.backends.ObjectPermissionBackend',
     )

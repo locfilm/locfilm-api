@@ -5,16 +5,10 @@ from .permissions import IsUserOrReadOnly
 from .serializers import CreateUserSerializer, UserSerializer
 
 # Authentication
-from django.contrib.auth import login
-
-from rest_framework.authentication import BasicAuthentication, SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
 
 from rest_framework.decorators import api_view, permission_classes
 
@@ -54,8 +48,7 @@ class UserCreateViewSet(mixins.CreateModelMixin,
     """
     Creates user accounts
     """
+
     queryset = User.objects.all()
     serializer_class = CreateUserSerializer
     permission_classes = (AllowAny,)
-
-

@@ -11,7 +11,7 @@ class Image(models.Model):
     """
 
     location_id = models.ForeignKey('locations.Location', on_delete=models.CASCADE)
-    image_url = models.ImageField(upload_to='locations/pictures' ,verbose_name='Image of a location')
+    image_url = models.ImageField(upload_to='locations/pictures', verbose_name='Image of a location')
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
 

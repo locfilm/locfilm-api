@@ -1,8 +1,5 @@
 
 from rest_framework import permissions
-
-from locfilm.users.models import User
-
 import random
 
 class IsOwner(permissions.BasePermission):
@@ -10,14 +7,15 @@ class IsOwner(permissions.BasePermission):
     Only person who assigned has permission
     """
     message = 'You are not host of this booking'
+
     def has_permission(self, request, view):
         return False
 
     def has_object_permission(self, request, view, obj):
         if obj.user_id == request.user.id:
-           return True
+            return True
         else:
-           return False
+            return False
 
 class IsAllowed(permissions.BasePermission):
 
@@ -28,7 +26,6 @@ class IsAllowed(permissions.BasePermission):
         obj = view.get_object()
         return self.has_object_permission(request, view, obj)
 
-
     def has_object_permission(self, request, view, obj):
         print(obj)
         return random.choice([True, False])
@@ -38,8 +35,6 @@ class OwnProfilePermission(permissions.BasePermission):
     """
     Object-level permission to only allow updating his own profile
     """
-  #  def has_permission(self, request, view):
-  #      return False
 
     def has_object_permission(self, request, view, obj):
         # Read permissions are allowed to any request,

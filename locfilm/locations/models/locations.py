@@ -9,7 +9,8 @@ from locfilm.utils.models.countries import City
 class Location (models.Model):
     """ Location model.
 
-    A location is owned and rented by different users. Bookings are managed, created, updated and deleted by Admin.
+    A location is owned and rented by different users.
+    Bookings are managed, created, updated and deleted by Admin.
     """
 
     name = models.CharField('location name', max_length=40)
@@ -22,15 +23,15 @@ class Location (models.Model):
         regex=r'^\+?\d{9,15}$',
         message="Phone number must be entered in the format : +999999999. Up to 15 digits allowed."
     )
-    contact_phone = models.CharField(validators=[phone_regex],max_length=16)
-    main_image = models.ImageField(upload_to='locations/pictures', verbose_name='Main picture of a location', null=True)
-
+    contact_phone = models.CharField(validators=[phone_regex], max_length=16)
+    main_image = models.ImageField(upload_to='locations/pictures',
+                                   verbose_name='Main picture of a location', null=True)
 
     # Foreign Keys
-
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE )
-    categories = models.ManyToManyField('locations.Category', through='locations.Group', through_fields=('location', 'category'))
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    categories = models.ManyToManyField('locations.Category', through='locations.Group',
+                                        through_fields=('location', 'category'))
 
     # Geolocation
 
@@ -39,13 +40,16 @@ class Location (models.Model):
 
     # Stats
 
-    is_active = models.BooleanField('active location', default=False, help_text='If active, can be listed for rent')
+    is_active = models.BooleanField('active location', default=False,
+                                    help_text='If active, can be listed for rent')
     has_parking = models.BooleanField('parking', default=False, help_text='Location has parking space')
-    has_dressing_room = models.BooleanField('dressing room', default=False, help_text='Location has dressing room space')
+    has_dressing_room = models.BooleanField('dressing room', default=False,
+                                            help_text='Location has dressing room space')
     has_bathroom = models.BooleanField('bathroom', default=False, help_text='Location has bathroom')
     has_cattering = models.BooleanField('cattering', default=False, help_text='Location has cattering space')
     has_wifi = models.BooleanField('wifi', default=False, help_text='Location has wifi available')
-    is_verified = models.BooleanField('verified location', default=False, help_text='locations has to be verified before listed for rent')
+    is_verified = models.BooleanField('verified location', default=False,
+                                      help_text='locations has to be verified before listed for rent')
 
     def __str__(self):
         """ Return Location name."""

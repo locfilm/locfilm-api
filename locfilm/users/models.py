@@ -8,7 +8,6 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
-from django.core.validators import RegexValidator
 
 # DRF
 from rest_framework.authtoken.models import Token
@@ -30,14 +29,12 @@ class User(AbstractUser):
         'profile picture',
         upload_to='users/pictures/',
         blank=True,
-        null=True
+        null=True,
     )
 
-    email = models.EmailField(
-        'email address',
-        unique=True,
-        error_messages={'unique': 'The mail is already in use. It must be unique'},
-        )
+    email = models.EmailField('email address',
+                              unique=True,
+                              error_messages={'unique': 'The mail is already in use. It must be unique'},)
 
     phone = PhoneField()
 
@@ -47,7 +44,6 @@ class User(AbstractUser):
     # Variable configurations
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone']
-
 
     def __str__(self):
         return self.username

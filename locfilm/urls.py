@@ -3,12 +3,6 @@ from django.urls import path, re_path, include, reverse_lazy
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
-from rest_framework.routers import DefaultRouter
-
-# Urls from apps
-from .heros.urls import urlpatterns as HeroUrls
-from .users.urls import urlpatterns as UserUrls
-from .bookings.urls import urlpatterns as BookingUrls
 
 root = ''
 

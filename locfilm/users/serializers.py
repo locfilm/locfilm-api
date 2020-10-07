@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name','email', 'address')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'address')
         read_only_fields = ('username', 'email')
 
 
@@ -20,9 +20,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        # url = serializers.HyperlinkedIdentityField(view_name="api:user-detail")
         fields = ('id', 'username', 'password', 'first_name', 'last_name', 'email',
                   'auth_token', 'phone', 'address', 'picture')
         read_only_fields = ('auth_token',)
         extra_kwargs = {'password': {'write_only': True}}
-

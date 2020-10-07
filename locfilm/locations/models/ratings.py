@@ -16,5 +16,5 @@ class Rating(models.Model):
     accesibility = models.SmallIntegerField(null=False, verbose_name='Accesibility of location', default=0)
     conditions = models.SmallIntegerField(null=False, verbose_name='Conditions of location', default=0)
     average = models.SmallIntegerField(null=False, verbose_name='value for money of the location', default=0)
-    description = models.CharField(null=True, max_length=2000,verbose_name='Observations about the experience of the user')
-
+    description = models.CharField(null=True, max_length=2000,
+                                   verbose_name='Observations about the experience of the user')

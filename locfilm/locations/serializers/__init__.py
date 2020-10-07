@@ -1,3 +1,5 @@
-from .locations import *
-from .images import *
-from .ratings import *
+from .locations import LocationModelSerializer
+from .images import ImageModelSerializer
+from .ratings import RatingModelSerializer
+
+LocationModelSerializer, ImageModelSerializer, RatingModelSerializer
