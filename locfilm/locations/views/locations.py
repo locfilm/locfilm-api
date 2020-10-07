@@ -25,13 +25,13 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         """ Set permissions based in actions."""
-        if self.action == 'list':
+        if self.action in ['list', 'images', 'ratings']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-    @action(detail=True, methods=['get'], permission_classes=[AllowAny])
+    @action(detail=True, methods=['get'], permission_classes=[AllowAny], url_name='location-images')
     def images(self, request, pk=None):
         """ View to return all the images of a specific location """
         try:
