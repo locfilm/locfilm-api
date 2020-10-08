@@ -42,7 +42,7 @@ https://documenter.getpostman.com/view/12985173/TVRj6UXu
 We are a group of developers that got togheter thanks to Platzi Master Program. This project is the result of weeks of hard work and learning. 
 
 - Yeferson Guarin
-- Camilo Romero]
+- Camilo Romero
 - Gabriel Ospino
 - Angel Flores Ayala
 
