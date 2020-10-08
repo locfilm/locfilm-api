@@ -116,7 +116,6 @@ class BookingViewSet(viewsets.ModelViewSet):
 
         serializer = RatingModelSerializer(data=data)
         if serializer.is_valid():
-            serializer.validated_data()
             serializer.save()
             return Response(serializer.data, status=status_codes.HTTP_206_PARTIAL_CONTENT)
         else:
