@@ -3,23 +3,18 @@ from django.urls import path, re_path, include, reverse_lazy
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import RedirectView
-from rest_framework.routers import DefaultRouter
-from rest_framework.authtoken import views
-from .users.views import UserViewSet, UserCreateViewSet
-from . import users
-from .heros.views import HeroViewSet
+from locfilm.users.urls import urlpatterns as UserUrls
+from locfilm.bookings.urls import urlpatterns as BookingUrls
+from locfilm.locations.urls import urlpatterns as LocationUrls
+root = ''
 
-router = DefaultRouter()
-router_2 = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'users', UserCreateViewSet)
-router_2.register(r'heros', HeroViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('heros/', include(router_2.urls)),
-    path('api/v1/', include(router.urls)),
-    path('api-token-auth/', views.obtain_auth_token),
+    path('', include(UserUrls)),
+    path('', include(BookingUrls)),
+    path('', include(LocationUrls)),
+
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # the 'api-root' from django rest-frameworks default router

@@ -16,28 +16,38 @@ class Common(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
 
+        # Utilities
+        'phone_field',
+        'corsheaders',
 
         # Third party apps
         'rest_framework',            # utilities for rest apis
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
+        'rest_registration',
+        'guardian',                  # for object permission
 
         # Your apps
-        'locfilm.users',
+        'locfilm.users.apps.UsersConfigApp',
         'locfilm.heros.apps.HerosConfigApp',
-
+        'locfilm.locations.apps.LocationsConfigApp',
+        'locfilm.utils.apps.UtilsConfig',
+        'locfilm.bookings.apps.BookingsConfig',
     )
 
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
     MIDDLEWARE = (
         'django.middleware.security.SecurityMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
+
+    CORS_ALLOW_ALL_ORIGINS = True
 
     ALLOWED_HOSTS = ["*"]
     ROOT_URLCONF = 'locfilm.urls'
@@ -48,7 +58,8 @@ class Common(Configuration):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
     ADMINS = (
-        ('Author', 'angel.fa.040f@gmail.com'),('Yeferson Guarin', ''), ('Gabriel Ospina', ''), ('Camilo Romero', '')
+        ('Author', 'angel.fa.040f@gmail.com'), ('Yeferson Guarin', ''),
+        ('Gabriel Ospina', ''), ('Camilo Romero', '')
     )
 
     # Postgres
@@ -56,7 +67,7 @@ class Common(Configuration):
         'default': dj_database_url.config(
             default='postgres://postgres:@postgres:5432/postgres',
             # Use just this for testing
-            #default='sqlite:///locfilmdb',
+            # default='sqlite:///locfilmdb',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }
@@ -114,9 +125,9 @@ class Common(Configuration):
         },
         {
             'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        },
-        {
-            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+            'OPTIONS': {
+                    'min_length': 9,
+            }
         },
         {
             'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
@@ -182,7 +193,7 @@ class Common(Configuration):
         }
     }
 
-    # Custom user app
+    # Custom user app - app_label.ModelName
     AUTH_USER_MODEL = 'users.User'
 
     # Django Rest Framework
@@ -202,3 +213,15 @@ class Common(Configuration):
             'rest_framework.authentication.TokenAuthentication',
         )
     }
+
+    REST_REGISTRATION = {
+        'REGISTER_VERIFICATION_ENABLED': False,
+        'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+        'RESET_PASSWORD_VERIFICATION_ENABLED': False,
+        # 'USER_LOGIN_FIELDS':
+    }
+
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',  # default
+        'guardian.backends.ObjectPermissionBackend',
+    )

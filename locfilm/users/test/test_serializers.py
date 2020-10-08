@@ -17,7 +17,7 @@ class TestCreateUserSerializer(TestCase):
 
     def test_serializer_with_valid_data(self):
         serializer = CreateUserSerializer(data=self.user_data)
-        ok_(serializer.is_valid())
+        ok_(serializer.is_valid(), msg=serializer.errors)
 
     def test_serializer_hashes_password(self):
         serializer = CreateUserSerializer(data=self.user_data)

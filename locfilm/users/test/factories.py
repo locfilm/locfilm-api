@@ -1,4 +1,5 @@
 import factory
+from django.core.files.base import ContentFile
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -16,3 +17,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     last_name = factory.Faker('last_name')
     is_active = True
     is_staff = False
+    phone = factory.Sequence(lambda n: '123-555-%04d' % n)
+    picture = factory.LazyAttribute(lambda _: ContentFile(
+                                    factory.django.ImageField()._make_data({'width': 1024, 'height': 768}),
+                                    'example.jpg'))

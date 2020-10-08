@@ -12,11 +12,18 @@ dj-database-url==0.5.0
 # Model Tools
 django-model-utils==4.0.0
 django_unique_upload==0.2.1
+django-phone-field
+django-cors-headers==3.5.0
+
+# Security
+django-guardian
 
 # Rest apis
 djangorestframework==3.11.1
 Markdown==3.2.2
 django-filter==2.3.0
+django-rest-registration
+
 
 # Developer Tools
 ipdb==0.13.3
@@ -34,4 +41,5 @@ coverage==5.3
 # Static and Media Storage
 django-storages==1.10.1
 boto3==1.14.62
+Pillow>=5.3.0
 

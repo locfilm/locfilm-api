@@ -3,10 +3,14 @@ version: '2'
 services:
   postgres:
     image: postgres:11.6
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
   web:
     restart: always
     environment:
       - DJANGO_SECRET_KEY=local
+    env_file:
+      - production_variables.env
     image: web
     build: ./
     command: >
@@ -27,6 +31,8 @@ services:
       - ./:/code
     ports:
       - "8001:8001"
-  
-  
-  
+
+volumes:
+  postgres_data:
+
+
