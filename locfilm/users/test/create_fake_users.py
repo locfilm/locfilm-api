@@ -3,7 +3,7 @@
 from locfilm.users.models import User
 from django.forms.models import model_to_dict
 
-from .factories import UserFactory
+from locfilm.users.test.factories import UserFactory
 from locfilm.users.serializers import CreateUserSerializer
 
 for i in range(100):
