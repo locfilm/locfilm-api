@@ -6,16 +6,16 @@ from django.forms.models import model_to_dict
 from locfilm.users.test.factories import UserFactory
 from locfilm.users.serializers import CreateUserSerializer
 
-for i in range(100):
+for i in range(200):
     # Crear un nuevo usuario del faker
     new_user = model_to_dict(UserFactory.build())
 
     # Serializer
-    serializer = CreateUserSerializer(data=self.user_data)
-
+    serializer = CreateUserSerializer(data=new_user)
+    print(new_user)
     # Agregar usuario a BD con Serializer
-    serializer.is_valid()
-    serializer.create()
+    if serializer.is_valid():
+        serializer.save()
 
 
 # # Crear locaciones
