@@ -25,7 +25,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         """ Set permissions based in actions."""
-        if self.action in ['list', 'images', 'ratings']:
+        if self.action in ['list', 'images', 'ratings', 'retrieve']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated]
@@ -47,6 +47,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'], permission_classes=[AllowAny])
     def ratings(self, request, pk=None):
+        """ Return ratings from a location """
         try:
             Location.objects.get(id=pk)
         except exceptions.ObjectDoesNotExist:
