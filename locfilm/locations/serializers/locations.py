@@ -9,6 +9,8 @@ from locfilm.locations.models import Location
 class LocationModelSerializer(serializers.ModelSerializer):
     """Location model serializer. """
 
+    city = serializers.StringRelatedField()
+
     class Meta:
         """ Meta class. """
 

@@ -10,8 +10,8 @@ from locfilm.locations.models import AdditionalInfo, Image, Location, Rating, Ca
 class LocationAdmin(admin.ModelAdmin):
     """ Location admin."""
 
-    list_display = ('name', 'owner', 'city', 'is_active', 'is_verified')
-    search_fields = ('name', 'city')
+    list_display = ('name', 'owner', 'city', 'is_active', 'is_verified', 'get_country')
+    search_fields = ('name', 'city__name', 'city__country_id__name')
     list_filter = (
         'is_active',
         'is_verified',
