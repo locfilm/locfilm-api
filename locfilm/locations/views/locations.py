@@ -20,7 +20,7 @@ from locfilm.locations.serializers import LocationModelSerializer, ImageModelSer
 # Filters
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-
+# from .filters import CityFilter
 class LocationViewSet(viewsets.ModelViewSet):
     """ Location viewset. """
 
@@ -29,7 +29,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     # Filter
     filter_backends = [SearchFilter, OrderingFilter, DjangoFilterBackend]
-    search_fields = ['name', 'description', 'city__name']
+    search_fields = ['name', 'description', 'city__name', 'city__country_id__name']
     filter_fields = ['is_active', 'is_verified',
                      'has_parking', 'has_dressing_room',
                      'has_bathroom', 'has_cattering', 'has_wifi']
