@@ -57,3 +57,5 @@ class Location (models.Model):
 
     def get_country(self):
         return self.city.country_id.name
+
+

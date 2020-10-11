@@ -10,6 +10,7 @@ class LocationModelSerializer(serializers.ModelSerializer):
     """Location model serializer. """
 
     city = serializers.StringRelatedField()
+    categories = serializers.StringRelatedField(many=True)
 
     class Meta:
         """ Meta class. """
