@@ -47,10 +47,16 @@ class BookingViewSet(viewsets.ModelViewSet):
             return Response({'error': 'User unauthorized'}, status=status_codes.HTTP_401_UNAUTHORIZED)
 
         data = request.data
-        serializer = UpdateBookingStatusSerializer(booking, data=data, partial=True)
+
+        serializer = UpdateBookingStatusSerializer(booking, data=data, partial=True, required='status')
+        print(serializer.validate_empty_values(data=data))
+
         if not serializer.is_valid():
             return Response({'error': serializer.errors,
                              'required': 'One value: "Pending","Confirmed", "Cancelled", "Finished"'},
+                            status=status_codes.HTTP_400_BAD_REQUEST)
+        elif len(serializer.validated_data) == 0:
+            return Response({'error': 'Request did not have "status" key'},
                             status=status_codes.HTTP_400_BAD_REQUEST)
 
         status = serializer.validated_data['status']
@@ -140,6 +146,7 @@ class BookingLocationsViewSet(viewsets.ViewSet):
             serializer = BookingSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
+                return Response(serializer.data, status=status_codes.HTTP_201_CREATED)
             else:
                 return Response(serializer.errors, status=status_codes.HTTP_400_BAD_REQUEST)
 
