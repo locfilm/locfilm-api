@@ -1,6 +1,4 @@
 # Create new objects in db
-
-from locfilm.users.models import User
 from django.forms.models import model_to_dict
 
 from locfilm.users.test.factories import UserFactory

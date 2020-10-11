@@ -7,5 +7,3 @@ class LocationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = 'locations.Location'
         django_get_or_create = ('id',)
-
-
