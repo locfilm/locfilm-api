@@ -54,3 +54,6 @@ class Location (models.Model):
     def __str__(self):
         """ Return Location name."""
         return self.name
+
+    def get_country(self):
+        return self.city.country_id.name

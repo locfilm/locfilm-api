@@ -17,15 +17,26 @@ from locfilm.locations.serializers import LocationModelSerializer, ImageModelSer
 
 # Permissions
 
+# Filters
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
+# from .filters import CityFilter
 class LocationViewSet(viewsets.ModelViewSet):
     """ Location viewset. """
 
     queryset = Location.objects.all()
     serializer_class = LocationModelSerializer
 
+    # Filter
+    filter_backends = [SearchFilter, OrderingFilter, DjangoFilterBackend]
+    search_fields = ['name', 'description', 'city__name', 'city__country_id__name']
+    filter_fields = ['is_active', 'is_verified',
+                     'has_parking', 'has_dressing_room',
+                     'has_bathroom', 'has_cattering', 'has_wifi']
+
     def get_permissions(self):
         """ Set permissions based in actions."""
-        if self.action in ['list', 'images', 'ratings']:
+        if self.action in ['list', 'images', 'ratings', 'retrieve']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated]
@@ -47,6 +58,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'], permission_classes=[AllowAny])
     def ratings(self, request, pk=None):
+        """ Return ratings from a location """
         try:
             Location.objects.get(id=pk)
         except exceptions.ObjectDoesNotExist:
