@@ -17,8 +17,7 @@ from datetime import datetime
 from locfilm.bookings.serializers import BookingSerializer, DatesBookingSerializer
 from locfilm.bookings.serializers import UpdateBookingStatusSerializer
 from locfilm.bookings.models import Booking
-from locfilm.locations.models import Rating
-from locfilm.locations.models import Location
+from locfilm.locations.models import Rating, Location
 from locfilm.users.models import User
 from locfilm.bookings.permissions import OwnProfilePermission
 from locfilm.locations.serializers.ratings import RatingModelSerializer
@@ -170,7 +169,8 @@ class BookingUsersViewSet(viewsets.ViewSet):
             if len(user_bookings) != 0:
                 serializer = BookingSerializer(data=user_bookings, many=True)
                 serializer.is_valid()
-                return Response(serializer.data)
+
+                return Response(serializer.data,)
             else:
                 return Response({'error': 'This user has no bookings registered'},
                                 status=status_codes.HTTP_400_BAD_REQUEST)

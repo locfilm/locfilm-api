@@ -4,12 +4,25 @@
 from rest_framework import serializers
 from locfilm.bookings.models import Booking
 
+# Models
+from locfilm.locations.models import Location
+
+class LocationFieldSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Location
+        fields = ['id', 'name', 'city', 'main_image']
+
 class BookingSerializer(serializers.ModelSerializer):
     """Booking Serializer
     """
+    location_id = LocationFieldSerializer()
+    # location = LocationFieldSerializer(instance=Location.objects.get(id=location_id.get_value)
+
     class Meta:
         model = Booking
-        fields = ['id', 'user_id', 'location_id', 'start_date', 'end_date', 'observations', 'status']
+        fields = ['id', 'user_id', 'location_id', 'start_date',
+                  'end_date', 'observations', 'status']
 
     def validate(self, data):
         if data['start_date'] >= data['end_date']:
