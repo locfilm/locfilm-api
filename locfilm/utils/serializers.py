@@ -3,10 +3,10 @@ from .models.countries import Country, City
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
-        model: Country
+        model = Country
         fields = '__all__'
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
-        model: City
+        model = City
         fields = '__all__'
