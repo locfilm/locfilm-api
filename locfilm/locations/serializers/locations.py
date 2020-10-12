@@ -6,11 +6,13 @@ from rest_framework import serializers
 # Model
 from locfilm.locations.models import Location
 
+# Serializer
+from .categories import CategorySerializer
 class LocationModelSerializer(serializers.ModelSerializer):
     """Location model serializer. """
 
     city = serializers.StringRelatedField()
-    categories = serializers.StringRelatedField(many=True)
+    categories = CategorySerializer(many=True)
 
     class Meta:
         """ Meta class. """
