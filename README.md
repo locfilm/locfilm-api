@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/Locfilm/locfilm-api.svg?branch=master)](https://travis-ci.org/Locfilm/locfilm-api)
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
 
-Project to find locations for filming.
+Locfilm is a platform where audiovisual producers find locations to film.
+
+locfilm tries to facilitate the search for spaces to film within Mexico and Colombia.
 
 # Prerequisites
 
@@ -41,10 +43,26 @@ https://documenter.getpostman.com/view/12985173/TVRj6UXu
 # About us
 We are a group of developers that got togheter thanks to Platzi Master Program. This project is the result of weeks of hard work and learning. 
 
-- Yeferson Guarin
-- Camilo Romero
-- Gabriel Ospino
-- Angel Flores Ayala
+### 🧟‍♂️ 🧟‍♀️ 🤖 Authors 
+
+* **Yeferson Guarin** - Back-end, DS. Col. [jeffaristi92](https://github.com/jeffaristi92)
+* **Anfel Flores** - Back-end, DS. Mx. [AngelFA04](https://github.com/AngelFA04)
+* **Gabril Ospina** - Back-end. Col. [Gabospa](https://github.com/Gabospa)
+* **Camilo Romero** - Back-end. Col. [jromeroc](https://github.com/jromeroc)
+
+* **Rodrigo Reyes** - Front-end, Designer. Mx. [RoiFuries](https://github.com/RoiFuries)
+* **Cesar Pentes** - Front-end. Col. [cesarp04](https://github.com/cesarp04)
 
 
-#
+
+### ✒️ Coaches
+* **Israel Yance** - Coach, Designer. Pe. [RoiFuries](https://github.com/israelyance)
+* **Crisly Gonzalez** - Coach, CR. [cesarp04](https://github.com/CrislyGonzalez)
+
+
+
+If you want to know about the insights [click here!](https://github.com/locfilm/locfilm-api/pulse)
+
+### 🎁 Contribute
+
+Feel free to contribute to the project!
