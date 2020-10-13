@@ -1,18 +1,30 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny, IsAdminUser
 
 from .models.countries import Country, City
 
 from .serializers import CountrySerializer, CitySerializer
 
-class CountryList(APIView):
-    def get(self, request):
-        countries = Country.objects.all()
-        serializer = CountrySerializer(countries, many=True)
-        return Response(serializer.data)
+class CountryList(viewsets.ModelViewSet):
+    serializer_class = CountrySerializer
+    queryset = Country.objects.all()
 
-class CityList(APIView):
-    def get(self, request):
-        cities = City.objects.all()
-        serializer = CitySerializer(cities, many=True)
-        return Response(serializer.data)
+    def get_permissions(self):
+        """ Set permissions based in actions."""
+        if self.action in ['list', 'retrieve']:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
+
+class CityList(viewsets.ModelViewSet):
+    serializer_class = CitySerializer
+    queryset = City.objects.all()
+
+    def get_permissions(self):
+        """ Set permissions based in actions."""
+        if self.action in ['list', 'retrieve']:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]

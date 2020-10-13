@@ -6,6 +6,7 @@ from django.views.generic.base import RedirectView
 from locfilm.users.urls import urlpatterns as UserUrls
 from locfilm.bookings.urls import urlpatterns as BookingUrls
 from locfilm.locations.urls import urlpatterns as LocationUrls
+from locfilm.utils.urls import urlpatterns as UtilsUrls
 root = ''
 
 
@@ -14,6 +15,7 @@ urlpatterns = [
     path('', include(UserUrls)),
     path('', include(BookingUrls)),
     path('', include(LocationUrls)),
+    path('', include(UtilsUrls)),
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 

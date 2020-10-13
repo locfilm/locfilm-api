@@ -15,16 +15,20 @@ from datetime import datetime
 
 # App data
 from locfilm.bookings.serializers import BookingSerializer, DatesBookingSerializer
-from locfilm.bookings.serializers import UpdateBookingStatusSerializer
+from locfilm.bookings.serializers import UpdateBookingStatusSerializer, BookingListSerializer
 from locfilm.bookings.models import Booking
-from locfilm.locations.models import Rating
-from locfilm.locations.models import Location
+from locfilm.locations.models import Rating, Location
 from locfilm.users.models import User
 from locfilm.bookings.permissions import OwnProfilePermission
 from locfilm.locations.serializers.ratings import RatingModelSerializer
 
 
 class BookingViewSet(viewsets.ModelViewSet):
+    """ Viewset for manage booking actions.
+        Actions:
+        - update_status
+        - ratings
+    """
     # specify serializer to be used
     serializer_class = BookingSerializer
 
@@ -40,7 +44,7 @@ class BookingViewSet(viewsets.ModelViewSet):
         try:
             booking = Booking.objects.get(id=pk)
         except exceptions.ObjectDoesNotExist:
-            return Response({'error': 'Location with ID provided does not exist'},
+            return Response({'error': 'Booking with ID provided does not exist'},
                             status=status_codes.HTTP_404_NOT_FOUND)
 
         if request.user != booking.user_id:
@@ -116,7 +120,6 @@ class BookingViewSet(viewsets.ModelViewSet):
 
         serializer = RatingModelSerializer(data=data)
         if serializer.is_valid():
-            serializer.validated_data()
             serializer.save()
             return Response(serializer.data, status=status_codes.HTTP_206_PARTIAL_CONTENT)
         else:
@@ -169,9 +172,10 @@ class BookingUsersViewSet(viewsets.ViewSet):
                                 status=status_codes.HTTP_401_UNAUTHORIZED)
             user_bookings = Booking.objects.filter(user_id=request.user.id)
             if len(user_bookings) != 0:
-                serializer = BookingSerializer(data=user_bookings, many=True)
+                serializer = BookingListSerializer(data=user_bookings, many=True)
                 serializer.is_valid()
-                return Response(serializer.data)
+
+                return Response(serializer.data,)
             else:
                 return Response({'error': 'This user has no bookings registered'},
                                 status=status_codes.HTTP_400_BAD_REQUEST)

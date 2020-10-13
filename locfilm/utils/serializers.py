@@ -9,8 +9,10 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CitySerializer(serializers.ModelSerializer):
-    name = serializers.CharField(required=True)
+
+    country_id = serializers.StringRelatedField()
+    country = country_id
 
     class Meta:
         model = City
-        fields = '__all__'
+        fields = ['name', 'country_id', 'country']

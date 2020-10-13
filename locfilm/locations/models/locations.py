@@ -13,11 +13,11 @@ class Location (models.Model):
     Bookings are managed, created, updated and deleted by Admin.
     """
 
-    name = models.CharField('location name', max_length=40)
+    name = models.CharField('location name', max_length=100)
     description = models.TextField('location description', max_length=2000)
-    address = models.CharField('local address', max_length=50)
+    address = models.CharField('local address', max_length=150)
 
-    contact_email = models.EmailField('contact email', max_length=30)
+    contact_email = models.EmailField('contact email')
     price = models.FloatField('location price', max_length=10, help_text='Daily cost of rent in USD')
     phone_regex = RegexValidator(
         regex=r'^\+?\d{9,15}$',
@@ -54,3 +54,6 @@ class Location (models.Model):
     def __str__(self):
         """ Return Location name."""
         return self.name
+
+    def get_country(self):
+        return self.city.country_id.name
