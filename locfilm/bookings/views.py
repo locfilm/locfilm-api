@@ -44,7 +44,7 @@ class BookingViewSet(viewsets.ModelViewSet):
         try:
             booking = Booking.objects.get(id=pk)
         except exceptions.ObjectDoesNotExist:
-            return Response({'error': 'Location with ID provided does not exist'},
+            return Response({'error': 'Booking with ID provided does not exist'},
                             status=status_codes.HTTP_404_NOT_FOUND)
 
         if request.user != booking.user_id:
