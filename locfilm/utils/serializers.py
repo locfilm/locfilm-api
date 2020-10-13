@@ -16,4 +16,3 @@ class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = ['name', 'country_id', 'country']
-
